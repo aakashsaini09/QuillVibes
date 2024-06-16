@@ -9,21 +9,25 @@ const app = new Hono<{
   }
 }>()
 // **************************************************************SignUp********************************************
-app.post('/api/v1/signup', async(c) => {
-  const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-  }).$extends(withAccelerate())
-  const body = await c.req.json();
-  const user = await prisma.user.create({
-    data: {
-      email: body.email,
-      password: body.password,
-    },
-  })
-  const token = sign({id: user.id}, "secret" )
-  return c.json({
-    jwt: token
-  })
+app.post('/api/v1/signup', async (c) => {
+	const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+
+	const body = await c.req.json();
+	try {
+		const user = await prisma.user.create({
+			data: {
+				email: body.email,
+				password: body.password
+			}
+		});
+		const jwt = await sign({ id: user.id }, c.env.JWT_SECRET);
+		return c.json({ jwt });
+	} catch(e) {
+		c.status(403);
+		return c.json({ error: "error while signing up" });
+	}
 })
 // **************************************************************Signin********************************************
 app.post('/api/v1/signin', async(c) => { 
