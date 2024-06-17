@@ -4,3 +4,6 @@ compatibility_date = "2023-12-01"
 [vars]
 DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiNGVkZTMyMjAtOTAzMy00NDFjLThmMWQtNDBlZGE1YjJiOTZlIiwidGVuYW50X2lkIjoiZDAxMWRhZTJmNDY4M2Q2Y2EyZjhmOGMyMjkwYzA5NDAxNmMxZDQ0N2U5NTEzNGFhOWQ5OWE4YmYxMGE5MzUzYyIsImludGVybmFsX3NlY3JldCI6Ijg3YzhjMDZkLTk4YmEtNGM4ZC04NDkzLWUzOTM2NGY4ZGYyYyJ9.-0iqdmhI0WnDik1439nY3NhgPaQXXVP36TeijAG1H74"
 JWT_SECRET = "asdasdasd"
+
+
+DATABASE_URL="postgres://postgres.tfbhtewlqnlodadavznk:nYhjEORefwv0IdpA@aws-0-ap-southeast-1.pooler.supabase.com:5432/postgres"
