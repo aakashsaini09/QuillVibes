@@ -84,3 +84,18 @@ bookRouter.put('/', async (c) => {
 
 	return c.text('updated post');
 });
+
+bookRouter.get('/:id', async (c) => {
+	const id = c.req.param('id');
+	const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+	
+	const post = await prisma.post.findUnique({
+		where: {
+			id
+		}
+	});
+
+	return c.json(post);
+})
