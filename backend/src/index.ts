@@ -29,16 +29,6 @@ app.post('/api/v1/signup', async (c) => {
 	}
 })
 
-
-
-
-
-
-
-
-
-
-
 // **************************************************************Signin********************************************
 app.post('/api/v1/signin', async(c) => { 
   const prisma = new PrismaClient({
