@@ -63,3 +63,24 @@ bookRouter.post('/', async (c) => {
 		id: post.id
 	});
 })
+
+bookRouter.put('/', async (c) => {
+	const userId = c.get('userId');
+	const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+
+	const body = await c.req.json();
+	prisma.post.update({
+		where: {
+			id: body.id,
+			authorId: userId
+		},
+		data: {
+			title: body.title,
+			content: body.content
+		}
+	});
+
+	return c.text('updated post');
+});
