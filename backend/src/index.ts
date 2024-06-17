@@ -6,10 +6,9 @@ const app = new Hono<{
   Bindings: {
     DATABASE_URL: string
     JWT_SECRET: string} }>()
-	// nIqsgaQnKX6wKQV3
+	// medium nYhjEORefwv0IdpA
 // **************************************************************SignUp********************************************
 app.post('/api/v1/signup', async (c) => {
-	console.log("C is:",c)
 	const prisma = new PrismaClient({
 		datasourceUrl: c.env?.DATABASE_URL	,
 	}).$extends(withAccelerate());
