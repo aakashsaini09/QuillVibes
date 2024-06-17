@@ -5,16 +5,16 @@ import { decode, sign, verify } from 'hono/jwt'
 const app = new Hono<{
   Bindings: {
     DATABASE_URL: string
-    JWT_SECRET: string
-  }
-}>()
+    JWT_SECRET: string} }>()
+	// nIqsgaQnKX6wKQV3
 // **************************************************************SignUp********************************************
 app.post('/api/v1/signup', async (c) => {
+	console.log("C is:",c)
 	const prisma = new PrismaClient({
 		datasourceUrl: c.env?.DATABASE_URL	,
 	}).$extends(withAccelerate());
-
 	const body = await c.req.json();
+	console.log("body is: ", body)
 	try {
 		const user = await prisma.user.create({
 			data: {
@@ -29,6 +29,17 @@ app.post('/api/v1/signup', async (c) => {
 		return c.json({ error: "error while signing up" });
 	}
 })
+
+
+
+
+
+
+
+
+
+
+
 // **************************************************************Signin********************************************
 app.post('/api/v1/signin', async(c) => { 
   const prisma = new PrismaClient({
