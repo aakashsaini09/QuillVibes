@@ -4,7 +4,8 @@ import { PrismaClient } from '@prisma/client/edge'
 import { sign } from 'hono/jwt';
 const app = new Hono<{
 	Bindings: {
-		DATABASE_URL: string
+		DATABASE_URL: string,
+    JWT_SEC: string
 	}
 }>();
 app.post('/api/v1/signup', async(c) => {
@@ -18,13 +19,32 @@ const user = await prisma.user.create({
     password: body.password,
   },
 })
-const token = await sign({ id: user.id }, "secret");
+const token = await sign({ id: user.id }, c.env.JWT_SEC);
 		return c.json({ 
       jwt: token
      });
 })
-app.post('/api/v1/signin', (c) => {
-  return c.text('signup successfully')
+
+
+
+app.post('/api/v1/signin', async(c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+}).$extends(withAccelerate())
+const body = await c.req.json()
+const user = await prisma.user.findUnique({
+  where: {
+    email: body.email,
+    password: body.password
+  }
+});
+if(!user){
+  c.status(403);
+  return c.json({error: "user not found"});
+}
+const jwt = await sign({ id: user.id }, c.env.JWT_SEC);
+		return c.json({ jwt });
+  return c.text('signIn successfully')
 })
 
 export default app
