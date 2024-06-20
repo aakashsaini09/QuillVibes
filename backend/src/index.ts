@@ -12,18 +12,6 @@ const app = new Hono<{
 }>();
 app.route("/api/v1/user", userRouter)
 app.route("/api/v1/blog", blogRoute)
-app.use('/api/v1/blog/*', async (c, next)=>{
-  // Login for blog here
-  const header = c.req.header("authorization") || "";
-  
-  const response = await verify(header, c.env.JWT_SEC)
-  if(response.id){
-    await next()
-  }
-  c.status(403)
-  return c.json({error: "unauthorized"});
-})
-
 export default app
 // 120svIQ8cytv2Lle
 // default

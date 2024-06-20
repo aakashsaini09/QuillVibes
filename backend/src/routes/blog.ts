@@ -10,44 +10,85 @@ export const blogRoute = new Hono<{
 	}
 }>();
 
-// *********************************************signUp route********************************************
-blogRoute.post('/signup', async(c) => {
+blogRoute.post('/*', async(c, next) => {
+    
+    next()
+})
+blogRoute.post('/', async(c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate())
     const body = await c.req.json()
-    try {
-      const user = await prisma.user.create({
+      const blog = await prisma.blog.create({
         data: {
-          email: body.email,
-          password: body.password,
-        },
+            title: body.title,
+            content: body.content,
+            authorId: 1
+        }
       })
-      const token = await sign({ id: user.id }, c.env.JWT_SEC);
-          return c.json({ 
-            jwt: token
-           });
-    } catch (err) {
-      c.status(411)
-      return c.text("Invalid!!!")
-    }
+     return c.json({
+        id: blog.id
+     })
+})
+
+    // *********************************************update blog********************************************
+    blogRoute.put('/', async(c) => {
+        const prisma = new PrismaClient({
+            datasourceUrl: c.env.DATABASE_URL,
+        }).$extends(withAccelerate())
+        
+        const body = await c.req.json()
+        const user = await prisma.blog.update({
+            where: {
+                id: body.id
+            },
+            data: {
+                title: body.title,
+                content: body.content,
+            }
+        });
     })
-    // *********************************************signIn route********************************************
-    blogRoute.post('/signin', async(c) => {
-      const prisma = new PrismaClient({
-        datasourceUrl: c.env.DATABASE_URL,
-    }).$extends(withAccelerate())
-    const body = await c.req.json()
-    const user = await prisma.user.findUnique({
-      where: {
-        email: body.email,
-        password: body.password
-      }
-    });
-    if(!user){
-      c.status(403);
-      return c.json({error: "Invalid Credintial"});
-    }
-    const jwt = await sign({ id: user.id }, c.env.JWT_SEC);
-            return c.json({ jwt: jwt, message: "Login Successfully" });
+    
+    // *********************************************get blogs of one user********************************************
+    blogRoute.get('/', async (c) => {
+        const prisma = new PrismaClient({
+            datasourceUrl: c.env.DATABASE_URL,
+        }).$extends(withAccelerate())
+        const body = await c.req.json()
+        try {
+            
+            const blog = await prisma.blog.findFirst({
+                where: {
+                    id: body.id
+                }
+            })
+            return c.json({
+                blog
+            })
+        } catch (error) {
+            c.status(411);
+            return c.json({
+                message: "Error while fetching blog post",
+                err: error
+            })
+        }
+    })
+    
+    // *********************************************get all the blogs********************************************
+    blogRoute.get('/bulk', async (c) => {
+        const prisma = new PrismaClient({
+            datasourceUrl: c.env.DATABASE_URL,
+        }).$extends(withAccelerate())
+        try {
+            const blogs = await prisma.blog.findMany()
+            return c.json({
+                blogs
+            })
+        } catch (error) {
+            c.status(411);
+            return c.json({
+                message: "Error while fetching blog post",
+                err: error
+            })
+        }
     })
