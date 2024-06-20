@@ -11,7 +11,14 @@ const app = new Hono<{
 
 app.use('/api/v1/blog/*', async (c, next)=>{
   // Login for blog here
-  await next()
+  const header = c.req.header("authorization") || "";
+  
+  const response = await verify(header, c.env.JWT_SEC)
+  if(response.id){
+    await next()
+  }
+  c.status(403)
+  return c.json({error: "unauthorized"});
 })
 // *********************************************signUp route********************************************
 app.post('/api/v1/signup', async(c) => {
