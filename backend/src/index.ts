@@ -26,16 +26,22 @@ const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
 }).$extends(withAccelerate())
 const body = await c.req.json()
-const user = await prisma.user.create({
-  data: {
-    email: body.email,
-    password: body.password,
-  },
-})
-const token = await sign({ id: user.id }, c.env.JWT_SEC);
-		return c.json({ 
-      jwt: token
-     });
+try {
+  
+  const user = await prisma.user.create({
+    data: {
+      email: body.email,
+      password: body.password,
+    },
+  })
+  const token = await sign({ id: user.id }, c.env.JWT_SEC);
+      return c.json({ 
+        jwt: token
+       });
+} catch (err) {
+  c.status(411)
+  return c.text("Invalid!!!")
+}
 })
 
 
