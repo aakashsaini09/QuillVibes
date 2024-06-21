@@ -21,14 +21,21 @@ export const blogRoute = new Hono<{
 }>();
 blogRoute.post('/*', async(c, next) => {
     const authHeader = c.req.header("authorization") || "";
-    const user = await verify(authHeader, c.env.JWT_SEC);
-    if (user) {
-        c.set("userId", String(user.id));
-        await next()
-    }else{
-        c.status(403)
+    try {   
+        const user = await verify(authHeader, c.env.JWT_SEC);
+        if (user) {
+            c.set("userId", String(user.id));
+            await next()
+        }else{
+            c.status(403)
+            return c.json({
+                message: "You are not logged in"
+            })
+        }
+    } catch (err) {
+        c.status(403);
         return c.json({
-            message: "You are not logged in"
+            message: "You are not looged in"
         })
     }
 })
