@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { PrismaClient } from '@prisma/client/edge'
-import { sign } from 'hono/jwt';
+import { jwt, sign } from 'hono/jwt';
 import { signInInput, signupInput } from "@aakashsaini/medium-blog";
 export const userRouter = new Hono<{
 	Bindings: {
@@ -31,10 +31,8 @@ userRouter.post('/signup', async(c) => {
           password: body.password,
         },
       })
-      const token = await sign({ id: user.id }, c.env.JWT_SEC);
-          return c.json({ 
-            jwt: token
-           });
+      const jwt = await sign({ id: user.id }, c.env.JWT_SEC);
+          return c.text(jwt)
     } catch (err) {
       c.status(411)
       return c.text("Invalid!!!")
@@ -62,5 +60,5 @@ userRouter.post('/signup', async(c) => {
       return c.json({error: "Invalid Credintial"});
     }
     const jwt = await sign({ id: user.id }, c.env.JWT_SEC);
-            return c.json({ jwt: jwt, message: "Login Successfully" });
+            return c.text(jwt)
     })
