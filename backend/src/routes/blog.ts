@@ -95,32 +95,29 @@ blogRoute.post('/', async(c) => {
         })
     })
     // *********************************************delete blog********************************************
-    // blogRoute.delete('/', async(c) => {
-    //     const prisma = new PrismaClient({
-    //         datasourceUrl: c.env.DATABASE_URL,
-    //     }).$extends(withAccelerate())
-        
-    //     const body = await c.req.json()
-    //     const { success } = updateBlogInput.safeParse(body)
-    //     if(!success){
-    //         c.status(411)
-    //         return c.json({
-    //             message: "Input is not correct"
-    //         })
-    //     }
-    //     const blog = await prisma.blog.update({
-    //         where: {
-    //             id: body.id
-    //         },
-    //         data: {
-    //             title: body.title,
-    //             content: body.content,
-    //         }
-    //     });
-    //     return c.json({
-    //         id: blog.id
-    //     })
-    // })
+    blogRoute.delete('/:id', async(c) => {
+        const id = c.req.param("id")
+        const prisma = new PrismaClient({
+            datasourceUrl: c.env.DATABASE_URL,
+        }).$extends(withAccelerate())
+        try {
+            const blog = await prisma.blog.delete({
+                where: {
+                    id: Number(id)
+                }
+            })
+            return c.json({
+                message: "blog deleted"
+            })
+        } catch (error) {
+            c.status(411);
+            return c.json({
+                message: "Error while fetching blog post",
+                err: error
+            })
+        }
+    })
+    
         // *********************************************get all the blogs********************************************
         blogRoute.get('/bulk', async (c) => {
             const prisma = new PrismaClient({
