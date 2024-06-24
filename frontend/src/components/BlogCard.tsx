@@ -6,26 +6,16 @@ interface BlogCardProps{
 }
 const BlogCard = ({autherName, title, content, publishedDate}: BlogCardProps) => {
   return (
-    <div>
-      <div>
-        <div className="flex justify-center flex-col">
-        <Avatar name={autherName} />
-        </div>
-         <div className="font-extralight">{autherName} .</div> 
-         {publishedDate}
+    <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen max-w-screen-md cursor-pointer">
+      <div className="flex items-center gap-3 my-3">
+        <div className="flex justify-center flex-col "><Avatar name={autherName} /></div>
+         <div className="font-bold text-2xl text-slate-800">{autherName}</div> 
+         <div className="font-extralight text-gray-600 text-base">{publishedDate}</div>
       </div>
-      <div>
-        {title}
-      </div>
-      <div>
-        {content.slice(0, 100) + "..."}
-      </div>
-      <div>
-        {`${Math.ceil(content.length / 100)} Minutes`}
-      </div>
-      <div className="bg-slate-200 h-1 w-full">
 
-      </div>
+      <div className="font-bold text-3xl mb-2">{title}</div>
+      <div className="text-slate-900 text-base"> {content.slice(0, 150) + "..."}</div>
+      <div className="text-gray text-base font-extralight text-slate-500 mt-4 pb-3 mb-1"> {`${Math.ceil(content.length / 100)} Minutes`} </div>
     </div>
   )
 }
