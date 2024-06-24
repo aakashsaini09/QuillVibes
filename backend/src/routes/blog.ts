@@ -53,13 +53,15 @@ blogRoute.post('/', async(c) => {
         })
     }
     const authorId = c.get("userId")
-      const blog = await prisma.blog.create({
+    console.log(authorId)
+    const blog = await prisma.blog.create({
         data: {
             title: body.title,
             content: body.content,
             authorId: Number(authorId)
         }
-      })
+    })
+    console.log(authorId)
      return c.json({
         id: blog.id
      })

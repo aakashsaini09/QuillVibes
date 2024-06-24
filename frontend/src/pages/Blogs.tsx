@@ -1,7 +1,6 @@
 import BlogCard from "../components/BlogCard"
 import Navbar from "../components/Navbar"
 import { useBlogs } from "../hooks"
-
 const Blogs = () => {
   const { loading, blogs} = useBlogs()
   if(loading){
