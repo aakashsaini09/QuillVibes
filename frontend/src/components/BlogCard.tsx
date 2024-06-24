@@ -8,7 +8,7 @@ const BlogCard = ({autherName, title, content, publishedDate}: BlogCardProps) =>
   return (
     <div className="p-4 border-b border-slate-200 pb-4 w-screen max-w-screen max-w-screen-md cursor-pointer">
       <div className="flex items-center gap-3 my-3">
-        <div className="flex justify-center flex-col "><Avatar name={autherName} /></div>
+        <div className="flex justify-center flex-col "><Avatar name={autherName} size="small"/></div>
          <div className="font-bold text-2xl text-slate-800">{autherName}</div> 
          <div className="font-extralight text-gray-600 text-base">{publishedDate}</div>
       </div>
@@ -19,10 +19,10 @@ const BlogCard = ({autherName, title, content, publishedDate}: BlogCardProps) =>
     </div>
   )
 }
-function Avatar({name}: {name: string}){
+export function Avatar({name,size}: {name: string, size?: "small" | "big"}){
   let tempNameValue : string = name.toUpperCase()
-  return <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-600 rounded-full">
-  <span className="font-medium text-gray-300">{tempNameValue[0]}</span>
+  return <div className={`relative inline-flex items-center justify-center overflow-hidden bg-gray-600 rounded-full ${size === "small"? "w-6 h-6": "w-10 h-10"}`}>
+  <span className= {`text-gray-300 ${size ==="small" ? "text-xs" : "text-md"}`}>{tempNameValue[0]}</span>
 </div>
 }
 
