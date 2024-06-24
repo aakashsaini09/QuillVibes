@@ -63,3 +63,49 @@ userRouter.post('/signup', async(c) => {
     const jwt = await sign({ id: user.id }, c.env.JWT_SEC);
             return c.text(jwt)
     })
+
+
+
+
+       // *********************************************delete blog********************************************
+       userRouter.delete('/:id', async(c) => {
+        const id = c.req.param("id")
+        const prisma = new PrismaClient({
+            datasourceUrl: c.env.DATABASE_URL,
+        }).$extends(withAccelerate())
+        try {
+            const user = await prisma.user.delete({
+                where: {
+                    id: Number(id)
+                }
+            })
+            return c.json({
+                message: "user deleted"
+            })
+        } catch (error) {
+            c.status(411);
+            return c.json({
+                message: "Error while fetching blog post",
+                err: error
+            })
+        }
+    })
+    
+        // *********************************************get all the blogs********************************************
+        userRouter.get('/bulk', async (c) => {
+            const prisma = new PrismaClient({
+                datasourceUrl: c.env.DATABASE_URL,
+            }).$extends(withAccelerate())
+            try {
+                const blogs = await prisma.user.findMany()
+                return c.json({
+                    blogs
+                })
+            } catch (error) {
+                c.status(411);
+                return c.json({
+                    message: "Error while fetching blog post",
+                    err: error
+                })
+            }
+        })
