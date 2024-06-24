@@ -20,6 +20,7 @@ export const blogRoute = new Hono<{
         userId: string
     }
 }>();
+
 blogRoute.post('/*', async(c, next) => {
     const authHeader = c.req.header("authorization") || "";
     try {   
@@ -40,6 +41,8 @@ blogRoute.post('/*', async(c, next) => {
         })
     }
 })
+
+// *********************************************add blog********************************************
 blogRoute.post('/', async(c) => {
     const prisma = new PrismaClient({
         datasourceUrl: c.env.DATABASE_URL,
@@ -118,7 +121,7 @@ blogRoute.post('/', async(c) => {
         }
     })
     
-        // *********************************************get all the blogs********************************************
+        // *********************************************get bulk blogs*******************************************
         blogRoute.get('/bulk', async (c) => {
             const prisma = new PrismaClient({
                 datasourceUrl: c.env.DATABASE_URL,
@@ -147,7 +150,7 @@ blogRoute.post('/', async(c) => {
                 })
             }
         })
-    // *********************************************get blogs of one user********************************************
+    // *********************************************get single blog********************************************
     blogRoute.get('/:id', async (c) => {
         const id = c.req.param("id")
         const prisma = new PrismaClient({
@@ -157,6 +160,15 @@ blogRoute.post('/', async(c) => {
             const blog = await prisma.blog.findFirst({
                 where: {
                     id: Number(id)
+                },
+                select:{
+                    title: true,
+                    content: true,
+                    author: {
+                        select: {
+                            name: true
+                        }
+                    }
                 }
             })
             return c.json({
