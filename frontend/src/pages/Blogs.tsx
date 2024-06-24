@@ -14,11 +14,13 @@ const Blogs = () => {
       <Navbar/>
     <div className="flex justify-center">
       <div className="max-w-xl">
-        <BlogCard 
-          autherName={"Aakash Saini"}
-          title={"Smoking Too Much Weed Almost Ruined My Life"}
-          content={"One of the squarest, most socially alienating things you can say in SF is this: “I was addicted to pot.” “Bullshit,” people will respond, rolling their eyes. “You can’t get addicted to pot. Cannabinoids, dude. Look it"}
+        {blogs.map((blog) => <BlogCard 
+          autherName={blog.author.name || "Anonymous"}
+          title={blog.title}
+          key={blog.id}
+          content={blog.content}
           publishedDate={"22nd Jan 2024"}/>
+        )}
          </div>
     </div>
     </div>
