@@ -2,7 +2,6 @@ import { Avatar } from "./BlogCard"
 import Navbar from "./Navbar"
 import { Blog } from "../hooks"
 const SingleBlog = ({blog}: {blog: Blog}) => {
-    console.log("blog is: ", blog)
     return (
       <div>
           <Navbar/>
