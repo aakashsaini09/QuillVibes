@@ -6,10 +6,12 @@ import Blogs from './pages/Blogs'
 import Publish from './pages/Publish'
 import Home from './pages/Home'
 import UserBlogs from './UserBlogs'
+import { RecoilRoot } from 'recoil'
 
 function App() {
   return (
     <>
+    <RecoilRoot>
       <BrowserRouter>
       <Routes>
 
@@ -22,6 +24,7 @@ function App() {
         <Route path='/userBlogs' element={<UserBlogs/>}/>
       </Routes>
       </BrowserRouter>
+      </RecoilRoot>
     </>
   )
 }

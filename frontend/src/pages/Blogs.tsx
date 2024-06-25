@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import BlogCard from "../components/BlogCard"
 import Navbar from "../components/Navbar"
-import { useBlogs } from "../hooks"
+import { useBlogs, useprofileBlog } from "../hooks"
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { UserName } from "../store/user";
 const Blogs = () => {
   const navigate = useNavigate()
   useEffect(()=>{
@@ -12,6 +14,11 @@ const Blogs = () => {
     },[]);
   
   const { loading, blogs} = useBlogs()
+  const { user} = useprofileBlog()
+  console.log(user)
+  // @ts-ignore
+  const [name, setName] = useRecoilState(UserName)
+  setName(user?.name|| "Aakash")
   if(loading){
     return <div>
       <Navbar/>

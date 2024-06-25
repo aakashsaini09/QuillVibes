@@ -184,29 +184,51 @@ blogRoute.post('/', async(c) => {
         }
     })
     
-            // *********************************************get all blogs (specific user)********************************************
-            blogRoute.post('/myblogs', async (c) => {
-
-                // console.log("request hit")
-                const id = c.get("userId")
-                // console.log("id is:::  ", id)
-                  const prisma = new PrismaClient({
-                      datasourceUrl: c.env.DATABASE_URL,
-                  }).$extends(withAccelerate())
-                  try {
-                      const blogs = await prisma.blog.findMany({
-                        where: {
-                          authorId: Number(id)
-                      },
-                      })
-                      return c.json({
-                          blogs
-                      })
-                  } catch (error) {
-                      c.status(411);
-                      return c.json({
-                          message: "Error while fetching blog post",
-                          err: error
-                      })
-                  }
-              })
+    // *********************************************get all blogs (specific user)********************************************
+    blogRoute.post('/myblogs', async (c) => {
+    // console.log("request hit")
+    const id = c.get("userId")
+    // console.log("id is:::  ", id)
+    const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
+    try {
+    const blogs = await prisma.blog.findMany({
+    where: {
+        authorId: Number(id)
+    },
+    })
+    return c.json({
+        blogs
+    })
+    } catch (error) {
+        c.status(411);
+        return c.json({
+            message: "Error while fetching blog post",
+            err: error
+        })
+      }
+          })
+    // *********************************************share user info********************************************
+    blogRoute.post('/user', async (c) => {
+        const id = c.get("userId")
+        const prisma = new PrismaClient({
+            datasourceUrl: c.env.DATABASE_URL,
+        }).$extends(withAccelerate())
+        try {
+            const user = await prisma.user.findFirst({
+                where: {
+                    id: Number(id)
+                }
+            })
+            return c.json({
+                user
+            })
+        } catch (error) {
+            c.status(411);
+            return c.json({
+                message: "Error while fetching blog post",
+                err: error
+            })
+        }
+    })
