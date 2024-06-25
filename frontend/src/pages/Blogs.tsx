@@ -4,9 +4,14 @@ import { useBlogs } from "../hooks"
 const Blogs = () => {
   const { loading, blogs} = useBlogs()
   if(loading){
-    return <div className="h-full w-full flex justify-center items-center">
-      loading....
+    return <div>
+    <Navbar/>
+    <div className='h-screen flex flex-col justify-center'>
+      <div className='flex justify-center'>
+        loading....
+      </div>
     </div>
+  </div>
   }
   return (
     <div>
