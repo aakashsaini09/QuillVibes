@@ -27,7 +27,6 @@ export const useBlogs = (): { loading: boolean; blogs: Blog[] } => {
         })
             .then(response => {
                 setBlogs(response.data.blogs);
-                console.log(response.data.blogs)
                 setLoading(false);
             })
             .catch(error => {
@@ -55,7 +54,7 @@ export const useBlog = ({ id }: { id: string }) => {
             }
         })
             .then(response => {
-                setBlog(response.data);
+                setBlog(response.data.blog);
                 setLoading(false);
             })
             .catch(error => {
