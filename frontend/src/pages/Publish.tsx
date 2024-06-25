@@ -28,6 +28,17 @@ const Publish = () => {
         let newText = content.toLowerCase()
         setcontent(newText)
     }
+    const postBlog = async() =>{
+        if(title.length >= 5 && content.length>= 10){
+            const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, 
+             {title, content}, 
+             { headers: {
+                 Authorization: localStorage.getItem("token")}});
+                 navigate(`/blog/${response.data.id}`)
+        }else{
+            alert("Content is small. Add more details please")
+        }
+    }
   return ( <>
   <Navbar/>
   <div className="flex justify-center w-full pt-8">
@@ -46,16 +57,7 @@ const Publish = () => {
             <button type="button" className="text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={lowerCase}>LowerCase</button>
     </div>
     </div>
-    <button onClick={async () => {
-                    const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, {
-                        title, content
-                    }, { headers: {
-                        Authorization: localStorage.getItem("token")
-                    }});
-                    navigate(`/blog/${response.data.id}`)
-                }} type="submit" className="mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">
-                    Publish post
-                </button>
+    <button onClick={postBlog} type="submit" className="mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Publish post</button>
     </div>
     </div>
     </>
