@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import { Avatar } from "./BlogCard"
 
 const Navbar = () => {
-  
+
   return (
     <Link to={`/blogs`} className="border-b flex justify-between px-10 py-4" >
         <div className="flex flex-col justify-center font-bold text-2xl">Medium</div>
@@ -13,5 +13,4 @@ const Navbar = () => {
     </Link>
   )
 }
-
 export default Navbar
