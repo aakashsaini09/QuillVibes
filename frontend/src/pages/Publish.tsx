@@ -2,12 +2,16 @@ import { useNavigate } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { BACKEND_URL } from "../config"
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 const Publish = () => {
     const [title, settitle] = useState("")
     const [content, setcontent] = useState("")
     const navigate = useNavigate()
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/");
+    }})
     const copyFuntion = () => {
         navigator.clipboard.writeText(content); 
     }

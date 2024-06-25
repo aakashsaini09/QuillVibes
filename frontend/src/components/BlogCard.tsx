@@ -17,7 +17,7 @@ const BlogCard = ({autherName, title, content, publishedDate, id}: BlogCardProps
 
       <div className="font-bold text-3xl mb-2">{title}</div>
       <div className="text-slate-900 text-base"> {content.slice(0, 150) + "..."}</div>
-      <div className="text-gray text-base font-extralight text-slate-500 mt-4 pb-3 mb-1"> {`${Math.ceil(content.length / 100)} Minutes`} </div>
+      <div className="text-gray text-base font-extralight text-slate-500 mt-4 pb-3 mb-1"> {`${Math.ceil(content.length / 100)} Minutes read`} </div>
     </div>
     </Link>
   )

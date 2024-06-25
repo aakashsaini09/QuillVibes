@@ -23,6 +23,8 @@ export const blogRoute = new Hono<{
 
 blogRoute.post('/*', async(c, next) => {
     const authHeader = c.req.header("authorization") || "";
+    // console.log("we are at top api")
+    // console.log("authHeader is ::  ", authHeader)
     try {   
         const user = await verify(authHeader, c.env.JWT_SEC);
         if (user) {
@@ -56,7 +58,6 @@ blogRoute.post('/', async(c) => {
         })
     }
     const authorId = c.get("userId")
-    console.log(authorId)
     const blog = await prisma.blog.create({
         data: {
             title: body.title,
@@ -64,7 +65,6 @@ blogRoute.post('/', async(c) => {
             authorId: Number(authorId)
         }
     })
-    console.log(authorId)
      return c.json({
         id: blog.id
      })
@@ -132,6 +132,7 @@ blogRoute.post('/', async(c) => {
                         content: true,
                         id: true,
                         title: true,
+                        authorId: true,
                         author: {
                             select: {
                                 name: true
@@ -183,3 +184,29 @@ blogRoute.post('/', async(c) => {
         }
     })
     
+            // *********************************************get all blogs (specific user)********************************************
+            blogRoute.post('/myblogs', async (c) => {
+
+                // console.log("request hit")
+                const id = c.get("userId")
+                // console.log("id is:::  ", id)
+                  const prisma = new PrismaClient({
+                      datasourceUrl: c.env.DATABASE_URL,
+                  }).$extends(withAccelerate())
+                  try {
+                      const blogs = await prisma.blog.findMany({
+                        where: {
+                          authorId: Number(id)
+                      },
+                      })
+                      return c.json({
+                          blogs
+                      })
+                  } catch (error) {
+                      c.status(411);
+                      return c.json({
+                          message: "Error while fetching blog post",
+                          err: error
+                      })
+                  }
+              })

@@ -2,9 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import { BACKEND_URL } from "../config";
-
 export interface Blog {
-
     "title": string,
     "content": string,
     "id": number,
@@ -12,7 +10,6 @@ export interface Blog {
     "author": {
         "name": string
     }
-
 }
 export const useBlogs = (): { loading: boolean; blogs: Blog[] } => {
     const [loading, setLoading] = useState(true);
@@ -42,7 +39,6 @@ export const useBlogs = (): { loading: boolean; blogs: Blog[] } => {
 }
 
 export const useBlog = ({ id }: { id: string }) => {
-
     const [loading, setLoading] = useState(false);
     const [blog, setBlog] = useState<Blog>();
 
@@ -50,7 +46,7 @@ export const useBlog = ({ id }: { id: string }) => {
         axios.get(`${BACKEND_URL}/api/v1/blog/${id}`, {
           method: "GET",
             headers: {
-                "Authorization": "Bearer " + localStorage.getItem("userInfo")
+                "Authorization": "Bearer " + localStorage.getItem("token")
             }
         })
             .then(response => {
@@ -70,3 +66,30 @@ export const useBlog = ({ id }: { id: string }) => {
     }
 
 }
+// export const useprofileBlog = () => {
+//     const [loading, setLoading] = useState(false);
+//     const [blogs, setBlogs] = useState<Blog[]>([]);
+//     useEffect(() => {
+//         axios.get(`${BACKEND_URL}/api/v1/blog/myblogs`, {
+//           method: "GET",
+//             headers: {
+//                 "Authorization": localStorage.getItem("userInfo")
+//             }
+//         })
+//             .then(response => {
+//                 setBlogs(response.data.blogs);
+//                 setLoading(false);
+//             })
+//             .catch(error => {
+//                 console.error("Error fetching blogs:", error);
+//                 setLoading(false); // make sure to handle errors by setting loading state to false
+//             });
+
+//     }, [blogs])
+
+//     return {
+//         loading,
+//         blogs
+//     }
+
+// }

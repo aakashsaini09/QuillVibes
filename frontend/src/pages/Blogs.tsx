@@ -1,7 +1,16 @@
+import { useEffect } from "react";
 import BlogCard from "../components/BlogCard"
 import Navbar from "../components/Navbar"
 import { useBlogs } from "../hooks"
+import { useNavigate } from "react-router-dom";
 const Blogs = () => {
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      navigate("/");
+    }
+    },[]);
+  
   const { loading, blogs} = useBlogs()
   if(loading){
     return <div>
@@ -63,5 +72,4 @@ const Blogs = () => {
     </div>
   )
 }
-
 export default Blogs
