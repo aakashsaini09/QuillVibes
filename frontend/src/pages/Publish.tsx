@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import { BACKEND_URL } from "../config"
 import axios from "axios"
-import { ChangeEvent, useState } from "react"
+import { useState } from "react"
 
 const Publish = () => {
     const [title, settitle] = useState("")
@@ -11,18 +11,22 @@ const Publish = () => {
     const copyFuntion = () => {
         navigator.clipboard.writeText(content); 
     }
-    const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setcontent(event.target.value);
-    };
     const removeExtraSpaces = () => {
-        // Split the content by spaces, filter out empty strings, and join back with a single space
         const newText = content.split(/\s+/).filter(Boolean).join(" ");
         setcontent(newText);
-        console.log("content: ", content, " And newtext is: ", newText)
     };
     const clearText = ()=>{ 
         let newText = '';
         setcontent(newText);
+    }
+    const upperCase=() =>{
+        let newText = content.toUpperCase()
+        setcontent(newText)
+    }
+    const lowerCase=() =>{
+        
+        let newText = content.toLowerCase()
+        setcontent(newText)
     }
   return ( <>
   <Navbar/>
@@ -30,12 +34,16 @@ const Publish = () => {
     <div className="max-w-screen-lg w-full">
     <input onChange={(e) => { settitle(e.target.value)}} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Title" required  />
     <div>
-   <TextEditor onChange={(e) => { setcontent(e.target.value), handleChange}}/>
+   {/* <TextEditor onChange={(e) => { setcontent(e.target.value), handleChange}}/> */}
+   <div>
+     <textarea value={content} onChange={(e) => setcontent(e.target.value)} id="txtarea" rows={6} className="my-3 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write an article..."></textarea>
+    </div>
     <div className="buttons">
-        <button onClick={copyFuntion}>Copy text</button>
-        <button onClick={removeExtraSpaces}>Remove Extra Space</button>
-        <button onClick={clearText}>Clear Text</button>
-
+            <button type="button" className="text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={copyFuntion}>Copy Text</button>
+            <button type="button" className="text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={removeExtraSpaces}>Remove extra Space</button>
+            <button type="button" className="text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={clearText}>Clear Text</button>
+            <button type="button" className="text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={upperCase}>UpperCase</button>
+            <button type="button" className="text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={lowerCase}>LowerCase</button>
     </div>
     </div>
     <button onClick={async () => {
@@ -52,12 +60,6 @@ const Publish = () => {
     </div>
     </>
   )
-}
-function TextEditor ({onChange}: {onChange:( e: ChangeEvent<HTMLTextAreaElement>) => void}) {
-    return <div>
-     <textarea onChange={onChange} id="txtarea" rows={6} className="my-3 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write an article..."></textarea>
-    
-    </div>
 }
 
 
