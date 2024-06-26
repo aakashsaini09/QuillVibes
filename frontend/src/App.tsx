@@ -5,7 +5,7 @@ import Blog from './pages/Blog'
 import Blogs from './pages/Blogs'
 import Publish from './pages/Publish'
 import Home from './pages/Home'
-import UserBlogs from './UserBlogs'
+import UserBlogs from './pages/UserBlogs'
 import { RecoilRoot } from 'recoil'
 
 function App() {

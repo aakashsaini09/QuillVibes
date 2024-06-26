@@ -15,7 +15,6 @@ const Blogs = () => {
   
   const { loading, blogs} = useBlogs()
   const { user} = useprofileBlog()
-  console.log(user)
   // @ts-ignore
   const [name, setName] = useRecoilState(UserName)
   setName(user?.name|| "Aakash")
