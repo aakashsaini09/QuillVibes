@@ -6,6 +6,7 @@ const SingleBlog = ({blog}: {blog: Blog}) => {
       <div>
           <Navbar/>
           <div className="flex justify-center">
+            
               <div className="grid grid-cols-12 px-6 w-full pt-12 max-w-screen-xl gap-3 pr-4">
                   <div className="col-span-8">
                       <div className="text-5xl font-extrabold">
@@ -43,5 +44,4 @@ const SingleBlog = ({blog}: {blog: Blog}) => {
       </div>
     )
   }
-  
   export default SingleBlog

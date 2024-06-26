@@ -64,7 +64,7 @@ const Publish = () => {
             <button type="button" className="text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={lowerCase}>LowerCase</button>
     </div>
     </div>
-    <button disabled={loading ? true : false} onClick={postBlog} type="submit" className={`mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800 ${loading ? 'cursor-not-allowed' : ''}`}>Publish post</button>
+    <button disabled={loading ? true : false} onClick={postBlog} type="submit" className={`mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 hover:bg-blue-800 ${loading ? 'cursor-not-allowed' : ''}`}>Publish post</button>
     </div>
     </div>
     </>
