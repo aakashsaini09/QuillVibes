@@ -50,11 +50,11 @@ const Publish = () => {
   <Navbar/>
   <div className="flex justify-center w-full px-2">
     <div className="max-w-screen-lg w-full">
-    <input onChange={(e) => { settitle(e.target.value)}} type="text" id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Title" required  />
+    <input onChange={(e) => { settitle(e.target.value)}} type="text" className="bg-gray-100 outline-none text-gray-900 text-base rounded-lg block w-full p-3 py-7 mt-5" placeholder="Title" required  />
     <div>
    {/* <TextEditor onChange={(e) => { setcontent(e.target.value), handleChange}}/> */}
    <div>
-     <textarea value={content} onChange={(e) => setcontent(e.target.value)} id="txtarea" rows={10} className="my-3 block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write an article..."></textarea>
+     <textarea value={content} onChange={(e) => setcontent(e.target.value)} id="txtarea" rows={10} className="my-3 block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg outline-none" placeholder="Write an article..."></textarea>
     </div>
     <div className="buttons">
             <button type="button" className="text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={copyFuntion}>Copy Text</button>

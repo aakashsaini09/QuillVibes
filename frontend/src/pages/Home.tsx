@@ -6,7 +6,7 @@ const Home = () => {
     <div>
       <div className="top h-full w-full">
         <div className="border-b flex justify-between px-10 py-4" >
-            <div className="flex flex-col justify-center font-bold text-2xl">Medium</div>
+            <div className="flex flex-col justify-center font-bold text-2xl">QuillVibes</div>
             <div className="flex justify-between">
             <div><Link to={`/signup`} type="button" className="mr-8 focus:outline-none text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-black hover:bg-white hover:border-2 hover:border-black hover:text-black">Login/Sign-up<i className="fa-solid fa-arrow-right ml-2"></i></Link></div>
             </div>

@@ -15,9 +15,9 @@ function logOutFunction (){
 const name = useRecoilValue(UserName)
   return (
     <div className="border-b flex justify-between px-10 py-4" >
-        <Link to={`/blogs`} className="flex flex-col justify-center font-bold text-2xl">Medium</Link>
+        <Link to={`/blogs`} className="flex flex-col justify-center font-extrabold text-2xl">QuillVibes</Link>
         <div className="flex justify-between">
-          <Link to={`/publish`}><button type="button" className="mr-8 focus:outline-none text-white focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-green-600 hover:bg-green-700 dark:focus:ring-green-800">New</button></Link>
+          <Link to={`/publish`}><button type="button" className="mr-8 outline-none text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 bg-blue-600"><i className="fa-solid fa-feather pr-2"></i> Write</button></Link>
         <div onClick={changePopup} className="cursor-pointer">
           <Avatar size={"big"} name={name}/>
         </div>
