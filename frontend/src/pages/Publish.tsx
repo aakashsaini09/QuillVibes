@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 const Publish = () => {
     const [title, settitle] = useState("")
     const [content, setcontent] = useState("")
+    const [loading, setloading] = useState(false)
     const navigate = useNavigate()
   useEffect(()=>{
     if(!localStorage.getItem("token")){
@@ -34,10 +35,12 @@ const Publish = () => {
     }
     const postBlog = async() =>{
         if(title.length >= 5 && content.length>= 10){
+          setloading(true)
             const response = await axios.post(`${BACKEND_URL}/api/v1/blog`, 
              {title, content}, 
              { headers: {
                  Authorization: localStorage.getItem("token")}});
+                 setloading(false)
                  navigate(`/blog/${response.data.id}`)
         }else{
             alert("Content is small. Add more details please")
@@ -61,7 +64,7 @@ const Publish = () => {
             <button type="button" className="text-white bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={lowerCase}>LowerCase</button>
     </div>
     </div>
-    <button onClick={postBlog} type="submit" className="mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800">Publish post</button>
+    <button disabled={loading ? true : false} onClick={postBlog} type="submit" className={`mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800 ${loading ? 'cursor-not-allowed' : ''}`}>Publish post</button>
     </div>
     </div>
     </>
