@@ -11,29 +11,22 @@ const Auth = ({type}: {type: "signup" | "signin"}) => {
     email: "",
     password: ""
   });
+  const [loading, setloading] = useState(false)
   const authFunction = async() => {
     try {
+      setloading(true)
       const res = await axios.post(`${BACKEND_URL}/api/v1/user/${type==="signup"?"signup":"signin"}`, postInputs)
       const jwt = res.data;  
       localStorage.setItem("token", jwt)
+      setloading(false)
       navigate('/blogs')
     } catch (err) {
       console.log("Error", err)
+      setloading(false)
       // @ts-ignore
       alert(err.response.data.error)
     }
   }
-  // const [showAlert, setshowAlert] = useState("")
-  // useEffect(() => {
-  //   alertFunction("message")
-  //   setTimeout(()=>{
-  //     setshowAlert("message")
-  //   }, 5000)
-  // }, [showAlert])
-  
-  // function alertFunction (msg: string) {
-  //   setshowAlert(msg)
-  // }
   return (<>
     <div className="bg-white h-screen flex justify-center flex-col">
       <div className="flex justify-center w-full flex-col">
@@ -41,7 +34,7 @@ const Auth = ({type}: {type: "signup" | "signin"}) => {
           <div className="text-4xl font-extrabold mb-2">
            {type ==="signup"? "Create an account": "Login your account"}
           </div>
-          <div className="text-slate-400">
+          <div className="text-slate-400 text-center">
             {type === "signin"? "Don't have an accout?": "Already have an account?"} 
             <Link className="pl-2 underline" to={type === "signup"? "/signin": "/signup"}>{type === "signin"? "Sign up": "Sign in"}</Link>
           </div>
@@ -81,7 +74,7 @@ const Auth = ({type}: {type: "signup" | "signin"}) => {
         }}/>
      </div>
       }
-        <button onClick={authFunction} type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-3.5 me-2 my-4 w-full">{type==="signup"? "Sign up": "Sign in"}</button>
+        <button disabled={loading ? true : false} onClick={authFunction} type="button" className={`text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-lg text-sm px-5 py-3.5 me-2 my-4 w-full ${loading ? 'cursor-not-allowed' : ''}`}>{type==="signup"? "Sign up": "Sign in"}</button>
         </div>
       </div>
     </div>

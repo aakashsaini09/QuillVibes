@@ -43,6 +43,7 @@ const Publish = () => {
                  setloading(false)
                  navigate(`/blog/${response.data.id}`)
         }else{
+          setloading(false)
             alert("Content is small. Add more details please")
         }
     }

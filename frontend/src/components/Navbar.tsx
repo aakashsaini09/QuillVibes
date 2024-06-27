@@ -22,7 +22,7 @@ const name = useRecoilValue(UserName)
           <Avatar size={"big"} name={name}/>
         </div>
 {popManager &&
-        <div className="absolute rounded-md h-auto px-3 py-2 w-24 bg-gray-900 text-white right-2 top-14 flex flex-col">
+        <div className="absolute rounded-md h-auto z-10 px-3 py-2 w-24 bg-gray-900 text-white right-2 top-14 flex flex-col">
           <div className="my-1 w-full"><Link to={`/userBlogs`}>Profile</Link></div>
           <div className="my-1 w-full" onClick={logOutFunction}><Link to={`/`}>LogOut</Link></div>
         </div>
