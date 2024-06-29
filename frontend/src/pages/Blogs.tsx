@@ -64,7 +64,7 @@ const Blogs = () => {
     <div>
       <Navbar/>
     <div className="flex justify-center">
-      <div className="max-w-xl">
+      <div className="">
         {blogs.slice().reverse().map((blog) => <BlogCard 
           autherName={blog.author.name || "Anonymous"}
           id={blog.id}
