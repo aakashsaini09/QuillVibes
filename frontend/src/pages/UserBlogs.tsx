@@ -4,9 +4,9 @@ import { useRecoilValue } from "recoil";
 import { UserName } from "../store/user";
 import { Avatar } from "../components/BlogCard";
 import axios from "axios";
-import { BACKEND_URL } from "../config";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
+import { BACKEND_URL } from "../config";
 const UserBlogs : React.FC = () => {
 const [allBlogs, setAllBlogs] = useState<Blog[]>([])
 const [loading, setloading] = useState(false)
@@ -32,13 +32,13 @@ try {
 }
 const name = useRecoilValue(UserName)
 
-    const deleteBlog = async(id:number) => {
-        setloading(true)
-        try {
-            await axios.delete(
-                `${BACKEND_URL}/api/v1/blog/${id}`);
-                reqFunction()
-        } catch (error) {
+const deleteBlog = async(id:number) => {
+    setloading(true)
+    try {
+        await axios.delete(
+            `${process.env.BACKEND_URL}/api/v1/blog/${id}`);
+            reqFunction()
+    } catch (error) {
             setloading(false)
             console.log(error)
         }
@@ -62,9 +62,9 @@ const name = useRecoilValue(UserName)
     ): (allBlogs.map((e)=> {
         return <div key={e.id}>
         <div className="my-3 m-auto ">
-            <div className="block relative p-6 pb-3 min-h-80 border border-gray-200 rounded-lg hover:bg-gray-100 shadow-md">
-            <Link to={`/blog/${e.id}`} className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{e.title}</Link>
-            <p className="font-normal text-gray-700 pt-2">{e.content}</p>
+            <div className="block relative p-6 pb-3 min-h-96 border border-gray-200 rounded-lg hover:bg-gray-100 shadow-md">
+            <Link to={`/blog/${e.id}`} className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{e.title.slice(0, 55) + "..."}</Link>
+            <p className="font-normal text-gray-700 pt-2">{e.content.slice(0, 350)}{e.content.length>250 ?(<Link to={`/blog/${e.id}`} className="mx-1 text-blue-600 underline">Read More</Link>):("")}</p>
             <div className="pt-3 flex justify-around w-full absolute bottom-0 mr-3 -right-2 pb-3">
                 <button className="text-white bg-green-700 hover:bg-green-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2" onClick={()=> alert("Not completed yet!!")}>Edit Blog</button>
                 <button disabled={loading ? true : false} onClick={()=>  deleteBlog(e.id)} className={`text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ${loading ? 'cursor-not-allowed' : ''}`}>Delete Blog</button>

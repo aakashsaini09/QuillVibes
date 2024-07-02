@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom"
 import Navbar from "../components/Navbar"
-import { BACKEND_URL } from "../config"
 import axios from "axios"
 import { useEffect, useState } from "react"
-
+import { BACKEND_URL } from "../config"
 const Publish = () => {
     const [title, settitle] = useState("")
     const [content, setcontent] = useState("")

@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { SignInInput } from "@aakashsaini/medium-blog"
-// import { toast } from 'react-toastify'
 import axios from "axios"
 import { BACKEND_URL } from "../config"
+
 const Auth = ({type}: {type: "signup" | "signin"}) => {
   const navigate = useNavigate()
   const [postInputs, setPostInputs] = useState<SignInInput>({
@@ -12,6 +12,15 @@ const Auth = ({type}: {type: "signup" | "signin"}) => {
     password: ""
   });
   const [loading, setloading] = useState(false)
+
+  function demoLogin() {
+    setPostInputs({
+      email: "two@gmail.com",
+      password: "aakashsaini"
+    })
+    authFunction()
+  }
+
   const authFunction = async() => {
     try {
       setloading(true)
@@ -72,9 +81,13 @@ const Auth = ({type}: {type: "signup" | "signin"}) => {
             password: e.target.value
           })
         }}/>
-     </div>
+        </div>
       }
-        <button disabled={loading ? true : false} onClick={authFunction} type="button" className={`text-white bg-gray-800 hover:bg-gray-900  font-medium rounded-lg text-sm px-5 py-3.5 me-2 my-4 w-full ${loading ? 'cursor-not-allowed' : ''}`}>{type==="signup"? "Sign up": "Sign in"}</button>
+        <button disabled={loading ? true : false} onClick={authFunction} type="button" className={`text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-3.5 me-2 my-4 w-full ${loading ? 'cursor-not-allowed' : ''}`}>{type==="signup"? "Sign up": "Sign in"}</button>
+        {
+          type==="signin"? (<button disabled={loading? true : false} className={`text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-3.5 me-2 my-4 w-full  ${loading ? 'cursor-not-allowed' : ''}`} onClick={demoLogin}>Demo Account</button>
+          ):('')
+        }
         </div>
       </div>
     </div>
