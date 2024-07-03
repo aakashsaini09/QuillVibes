@@ -36,7 +36,7 @@ const deleteBlog = async(id:number) => {
     setloading(true)
     try {
         await axios.delete(
-            `${process.env.BACKEND_URL}/api/v1/blog/${id}`);
+            `${BACKEND_URL}/api/v1/blog/${id}`);
             reqFunction()
     } catch (error) {
             setloading(false)
