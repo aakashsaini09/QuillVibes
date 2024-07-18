@@ -1,2 +1,2 @@
-export const BACKEND_URL = process.env.VITE_BACKEND_URL;
-export const API_Key = process.env.VITE_API_Key;
+export const BACKEND_URL = "https://backend.aakashsaini948585.workers.dev";
+export const API_Key = "AIzaSyDc-r73r-T690XXULxXVh2Xja_jY3jg3hI"
