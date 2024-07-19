@@ -42,7 +42,7 @@ const AIgenerated = () => {
     const response = await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${API_Key}`, 
       {contents: [ {
           parts: [
-              { text: prompt + "in 10-12 lines" }
+              { text: prompt + ": write a blog about that in 10-12 lines" }
           ] }]},
       {
         headers: { 'Content-Type': 'application/json'}
