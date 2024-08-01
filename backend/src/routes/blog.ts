@@ -20,7 +20,6 @@ export const blogRoute = new Hono<{
         userId: string
     }
 }>();
-
 blogRoute.post('/*', async(c, next) => {
     const authHeader = c.req.header("authorization") || "";
     // console.log("we are at top api")

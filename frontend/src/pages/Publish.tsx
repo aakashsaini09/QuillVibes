@@ -47,6 +47,7 @@ const Publish = () => {
              { headers: {
                  Authorization: localStorage.getItem("token")}});
                  setloading(false)
+                 console.log(response.data)
                  navigate(`/blog/${response.data.id}`)
         }else{
           setloading(false)
