@@ -14,7 +14,7 @@ const SingleBlog = ({blog}: {blog: Blog}) => {
                       <div className="text-slate-500 pt-2">
                           Post on 2nd Dec 2024
                       </div>
-                      <div className="pt-4 pr-4">
+                      <div className="pt-4 pr-4 whitespace-pre-wrap">
                           {blog.content}
                       </div>
                   </div>
