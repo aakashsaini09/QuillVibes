@@ -96,7 +96,7 @@ const [checking, setchecking] = useState(false)
 
     <div className="max-w-screen-xl w-full">
     <input onChange={(e) => { settitle(e.target.value)}} type="text" className="bg-gray-100 outline-none text-gray-900 text-base rounded-lg block w-full p-3 pl-5 py-7 mt-5 mb-14" placeholder="Title" required  />
-    <button disabled={loading ? true : false} onClick={postBlog} type="submit" className={`mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg ${loading ? 'cursor-not-allowed' : ''}`}>{loading ? "Generating" : "Generate"}</button>
+    <button disabled={loading ? true : false} onClick={postBlog} type="submit" className={`mt-4 inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg ${loading ? 'cursor-not-allowed' : ''}`}>{loading ? "Generating..." : "Generate"}</button>
     </div>
     </div>
     </>
