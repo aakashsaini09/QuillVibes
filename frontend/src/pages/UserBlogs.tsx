@@ -89,7 +89,7 @@ const UserBlogs: React.FC = () => {
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
             <Navbar />
             
-            <div className="container mx-auto px-4 py-8 md:py-12 max-w-7xl">
+            <div className="container mx-auto px-4 py-16 md:py-28 max-w-7xl">
                 {/* Profile Header */}
                 <div className="mb-12">
                     <div className="flex items-center gap-4 mb-8">

@@ -15,7 +15,8 @@ function logOutFunction (){
 
 const name = useRecoilValue(UserName)
   return (
-    <div className="border-b flex justify-between mx-4 md:px-10 py-4 items-center" >
+    <div className="bg-background/50 w-full backdrop-blur-sm flex justify-between px-4 md:px-32 z-50 py-4 items-center fixed" >
+      {/* px-4 md:px-10 py-4 bg-background/50 sticky backdrop-blur-sm font-second top-0 md:py-3 z-50 */}
       <div className="flex gap-1">
         <Link to={'/blogs'}>
           <img src={Logo} alt="logo" className="w-12 h-12 md:w-16 md:h-16" />

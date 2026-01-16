@@ -23,7 +23,7 @@ const AIgenerated = () => {
     try {
       // Use the correct stable model name
       const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1/models/gemini-2.5-flash:generateContent?key=${API_Key}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_Key}`,
         {
           contents: [{
             parts: [{ text: prompt + ": write a blog about that in 10-12 lines" }]
@@ -34,7 +34,7 @@ const AIgenerated = () => {
         }
       );
       
-      // console.log("AI Response:", response);
+      console.log("AI Response:", response.data);
       
       // Check if response has the expected structure
       if (!response.data?.candidates?.[0]?.content?.parts?.[0]?.text) {
@@ -82,8 +82,10 @@ const AIgenerated = () => {
       const generatedContent = await AIRequest(title);
       setContent(generatedContent);
       setGenerated(true);
-    } catch (err) {
-      setError('Failed to generate content. Please try again.');
+    } catch (err: any) {
+      // Show the specific error message from the thrown error
+      setError(err.message || 'Failed to generate content. Please try again.');
+      console.error("Generation error:", err);
     } finally {
       setLoading(false);
     }
