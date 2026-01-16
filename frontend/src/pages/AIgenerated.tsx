@@ -51,17 +51,23 @@ const AIgenerated = () => {
         .trim();
       
       return generatedText;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error generating content:", error);
       
       // Check for quota error specifically
-      if (error.response?.status === 429 || error.message?.includes('quota')) {
-        throw new Error("API quota exceeded. Please wait a minute and try again.");
+      if (axios.isAxiosError(error) && error.response?.status) {
+        const status = error.response.status;
+        if (status === 429 || (error instanceof Error && error.message?.includes('quota'))) {
+          throw new Error("API quota exceeded. Please wait a minute and try again.");
+        }
       }
       
       // Check for invalid API key
-      if (error.response?.status === 400 || error.response?.status === 403) {
-        throw new Error("Invalid API key. Please check your configuration.");
+      if (axios.isAxiosError(error) && error.response?.status) {
+        const status = error.response.status;
+        if (status === 400 || status === 403) {
+          throw new Error("Invalid API key. Please check your configuration.");
+        }
       }
       
       throw new Error("Failed to generate content. Please try again.");
@@ -82,9 +88,10 @@ const AIgenerated = () => {
       const generatedContent = await AIRequest(title);
       setContent(generatedContent);
       setGenerated(true);
-    } catch (err: any) {
+    } catch (err) {
       // Show the specific error message from the thrown error
-      setError(err.message || 'Failed to generate content. Please try again.');
+      const errorMessage = err instanceof Error ? err.message : 'Failed to generate content. Please try again.';
+      setError(errorMessage);
       console.error("Generation error:", err);
     } finally {
       setLoading(false);
@@ -127,7 +134,7 @@ const AIgenerated = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       <Navbar />
       
-      <div className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
+      <div className="container mx-auto px-4 py-14 md:py-24 max-w-4xl">
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">

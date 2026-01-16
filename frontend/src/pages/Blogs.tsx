@@ -17,9 +17,11 @@ const Blogs = () => {
   
   const { loading, blogs } = useBlogs();
   const { user } = useprofileBlog();
-  // @ts-ignore
   const [name, setName] = useRecoilState(UserName);
   setName(user?.name || "Aakash");
+  if(name.length < 2){
+    console.log("Setting name to Aakash");
+  }
   
   if (loading) {
     return (

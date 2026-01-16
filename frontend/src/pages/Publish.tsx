@@ -27,16 +27,16 @@ const Publish = () => {
         setcontent(newText);
     };
     const clearText = ()=>{ 
-        let newText = '';
+        const newText = '';
         setcontent(newText);
     }
     const upperCase=() =>{
-        let newText = content.toUpperCase()
+        const newText = content.toUpperCase()
         setcontent(newText)
     }
     const lowerCase=() =>{
         
-        let newText = content.toLowerCase()
+        const newText = content.toLowerCase()
         setcontent(newText)
     }
     const postBlog = async() =>{
@@ -56,13 +56,12 @@ const Publish = () => {
     }
   return ( <>
   <Navbar/>
-  <div className="flex justify-center w-full px-2">
-    <div className="max-w-screen-lg w-full">
-    <input onChange={(e) => { settitle(e.target.value)}} type="text" className="bg-gray-100 outline-none text-gray-900 text-base rounded-lg block w-full p-3 py-7 mt-5" placeholder="Title" required  />
+  <div className="flex justify-center w-full px-2 py-12 md:py-20 bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-50">
+    <div className="max-w-screen-lg w-full pt-10">
+    <input onChange={(e) => { settitle(e.target.value)}} type="text" className="bg-white outline-none text-gray-900 text-base rounded-lg block w-full p-3 py-7 mt-5" placeholder="Title" required  />
     <div>
-   {/* <TextEditor onChange={(e) => { setcontent(e.target.value), handleChange}}/> */}
-   <div>
-     <textarea value={content} onChange={(e) => setcontent(e.target.value)} id="txtarea" rows={10} className="my-3 block p-2.5 w-full text-sm text-gray-900 bg-gray-100 rounded-lg outline-none" placeholder="Write an article..."></textarea>
+    <div>
+     <textarea value={content} onChange={(e) => setcontent(e.target.value)} id="txtarea" rows={10} className="my-3 block p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg outline-none" placeholder="Write an article..."></textarea>
     </div>
     <div className="buttons">
             <button type="button" className="text-white bg-gray-800 rounded-lg text-sm w-auto px-5 py-2.5 me-2 mb-2" onClick={copyFuntion}>{copy ? 'Copy' : 'Copied'}</button>
